@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Twitter Sentiment and Machine Learning</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/league.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        
+        
+    
+        <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+        <script type="text/javascript">
+            function initViz() {
+              var containerDiv = document.getElementById("vizContainer"),
+                  url = "https://prod-useast-a.online.tableau.com/t/hsrjason/views/Tweet_analysis/TwitterAnalysis?:display_count=n&:showAppBanner=false&:origin=viz_share_link&:showVizHome=n",
+                  options = {
+                      hideTabs: true,
+                      onFirstInteractive: function () {
+                          console.log("Run this code when the viz has finished loading.");
+                      }
+                  };
+
+              var viz = new tableau.Viz(containerDiv, url, options);
+              // Create a viz object and embed it in the container div.
+            }
+        </script>
+
+        
+	</head>
+
+	<body onload="initViz();">
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<a href="https://twitter.com/home" target="_blank">
+						<img src="img/Twitter_logo.jpg" alt="Twitter logo" style="height: 250px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</a>
+					<h3>Twitter Sentiment for COVID-19</h3>
+                    <p>
+						<medium>A machine learning approach for topic analysis</medium>
+					</p>
+					<p>
+						<small>Presented by <a href="https://www.cancer.org/research/acs-researchers/zhiyuan-jason-zheng-bio.html" target="_blank"><em>Zhiyuan "Jason" Zheng</em></a>, PhD </small>
+					</p>
+                    <p>
+						<small>American Cancer Society</small>
+					</p>
+				</section>
+
+				<section data-transition="concave">
+					<h2>Motivations</h2>
+                    <small>
+						<ul>
+                          <li>COVID-19: disrupting daily life and work </li>
+                          <li>Twitter: social platform for opinions </li>
+                          <li>62.5 million Twitter users in the United States</li>
+                          <li>Sentiment: people's attitude toward COVID-19  </li>
+                          <li>Potential Topics: Health, safty, economics, social distancing, and school reopenings </li>
+                        </ul>
+                    </small>
+
+				</section>
+
+				<section data-transition="concave">
+					<section data-transition="concave">
+						<h2>Twitter Data</h2>
+                           
+                        <ul><small>
+                                <li>Twitter API: 8 days of data (Aug 08 to Aug 15) </li>
+                                <li>Limited to 5000 tweets per day related to COVID-19: English, within United States </li>
+                                <li>Search key words: </li>
+                                      <em> <p>&nbsp;&nbsp;&nbsp;&nbsp; corona, #corona, coronavirus, #coronavirus, covid, #covid, covid19, #covid-19, sarscov2, #sarscov2, sars cov2, sars cov 2, covid_19, #covid_19, #ncov, ncov, #ncov2019, ncov2019, 2019-ncov, #2019-ncov, pandemic, #pandemic, #2019ncov, 2019ncov</p> </em>
+                                <li>A total of 40K Tweets </li>
+                                       <em> <p>&nbsp;&nbsp;&nbsp;&nbsp; Full tweet text and geo information</p> </em>
+                        </small></ul>
+                            
+<!--                        <p><smal>Next, <em></em></smal></p>-->
+						<br>
+						<a href="#" class="navigate-down">
+							<img class="r-frame" style="background: rgba(255,255,255,0.1);" width="50" height="50" data-src="https://static.slid.es/reveal/arrow.png" alt="Down arrow">
+						</a>
+					</section>
+                    <section data-transition="concave">
+						<h2>A snapshot for a tweet</h2>
+						<img src="img/Snapshot0.png" alt="Tweet snapshot" style="height: 300px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</section>
+					<section data-transition="concave">
+						<h2>A snapshot for a tweet</h2>
+						<img src="img/Snapshot1.png" alt="Tweet snapshot" style="height: 500px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</section>
+					<section data-transition="concave">
+						<h2>A snapshot for a tweet </h2>
+						<p><img src="img/Snapshot2.png" alt="Tweet snapshot" style="height: 500px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo"> </p>
+					</section>
+				</section>
+
+				<section data-transition="concave">
+                    <section data-transition="concave">
+                        <h2>Sentiment analysis</h2>
+                            <a href="#" class="navigate-down">
+                                <img class="r-frame" style="background: rgba(255,255,255,0.1);" width="500"  src="/img/sentiment.jpg" alt="Emojis">
+                            </a>
+                            <br>
+                            <a href="#" class="navigate-down">
+                                <img class="r-frame" style="background: rgba(255,255,255,0.1);" width="50" height="50" data-src="https://static.slid.es/reveal/arrow.png" alt="Down arrow">
+                            </a>
+                    </section>
+                    <section data-transition="concave">
+                        <h2>Sentiment analysis</h2>
+                            <ul>
+                                <li>Sentiment analysis: </li>
+                                  <p><small><em>&nbsp;&nbsp; The process of ‘computationally’ determining whether a piece of writing is positive, negative or neutral. It’s also known as opinion mining.</em></small></p>
+                                <!-- <li> </li> -->
+                                <li>TextBlob </li>
+                                    <p><small><em>TextBlob is a Python library for processing textual data. It can be used for natural language processing (NLP) tasks such as part-of-speech tagging, noun phrase extraction, sentiment analysis, classification, translation, and more.</em></small></p>
+                            </ul>
+
+
+                    </section>
+                    
+                    <section data-transition="concave">
+						<h2>Sentiment examples</h2>
+						<img src="img/Textblob.png" alt="Tweet snapshot" style="height: 300px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</section>
+                    
+				</section>
+
+
+				<section data-transition="concave">
+                    <section data-transition="concave">
+                        <h3>Natural Language Processing (NLP)</h3>
+                            <small>
+                            <ul>
+                                <li>Cleaning and pre-processing:</li>
+                                    <ul>
+                                      <li>Stopwords removed</li>
+                                      <li>All words lower cases</li>
+                                      <li>All sepcial characters removed: "\"|\.|\?|\!|\,|\-|\_|\(|\)|\{|\}|\/|\=|\+|\:"  </li>
+                                      <li>Splitted and stemmed</li>
+                                    </ul>
+                              </ul>
+                            </small>
+
+                            <br>
+                            <a href="#" class="navigate-down">
+                                <img class="r-frame" style="background: rgba(255,255,255,0.1);" width="50" height="50" data-src="https://static.slid.es/reveal/arrow.png" alt="Down arrow">
+                            </a>
+                    </section>
+                    <section data-transition="concave">
+                        <h3>NLP Continued</h3>
+                            <small>
+                            <ul>
+                              <li>Splitted and stemmed (example):
+                                <p>&nbsp;&nbsp; <em>Before: "You really can't make this stuff up. As Columbia County suffers a #COVID19 spike due to golfing events. Sen. Jordan shows us just what those events looked like by attending a political golf event in Easton with NO MASKS and NO SOCIAL DISTANCING. #NewYork #MaskUp https://t.co/zeOe511KdM"</em></p>
+                                <p>&nbsp;&nbsp; <em>After: "realli can't make stuff columbia counti suffer #covid19 spike due golf event sen jordan show us event look like attend polit golf event easton mask social distanc #newyork #maskup http co zeoe511kdm"</em></p>
+                              </li>
+                              <li>Final words count: >70K (18k words showed up more than once)</li>
+
+                              </ul>
+                            </small>
+
+                    </section>
+                    <section data-transition="concave">
+                        <h3>Machine Learning</h3>
+                            <small>
+                              <ul>
+                                <li>Machine Learning </li>
+                                    <ul>
+                                        <li><em>Top 400 words were seleted and 140 words were mannually removed (e.g. he, did, go, yo, yeserday, etc). Final key words: 260 </em></li>
+                                      <li>Latent Dirichlet Allocation (LDA): Unsupervised learning for clusterings/topics</li>
+                                      <li>Grid search: n = 2 clusterings</li>
+                                      <li>From 2 up to 8 clusterings: human choice of 5 clusterings</li>
+                                    </ul>
+                              </ul>
+                            </small>
+                    </section>
+                    <section data-transition="concave">
+						<h3>LDA Model Explained</h3>
+						<img src="img/topic-modelling.gif" alt="Tweet snapshot" style="height: 300px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+					</section>
+                    <section id="fragments" data-transition="concave">
+                        <h3>Machine Learning Continued</h3>
+                            <small>
+                              <ul>
+                                <li>5 Clusterings </li>
+                                    <ul><em>
+                                        <p class="fragment">&nbsp;&nbsp; School_reopening (n=8557): school play footbal back week season colleg kid player sport cancel fall team game health risk plan check children high concern big athlet year take wonder free open reopen confer</p>
+                                        <p class="fragment">&nbsp;&nbsp; 2020_Election (n=7945): trump realdonaldtrump american vote respons peopl presid elect america kill countri mail help state million think unemploy relief world money economi order call democrat gop take biden lie fund hous</p>
+                                        <p class="fragment">&nbsp;&nbsp; State_News_Economy (n=7184): test new time case death posit state thank today well number report job work amp result rate first back florida hospit quarantin neg </p>
+                                        <p class="fragment">&nbsp;&nbsp; Policies_Mask_Safty (n=8650): amp like mask peopl wear feel social student commun work spread safe help real everyon post love distanc put great famili face </p>
+                                        <p class="fragment">&nbsp;&nbsp; General_Critics (n=7664): die peopl month year vaccin fuck home live shit good take pleas sick work life mani busi flu last first right stop kid think patient care immun</p>
+                                    </em></ul>
+                                <!-- <li> </li> -->
+                              </ul>
+                            </small>
+                    </section>
+
+                    
+				</section>
+
+				<section data-transition="concave">
+					<h2>Results</h2>
+
+                              <div id="vizContainer" style="height:600px;"></div>
+				</section>
+
+				<section data-transition="concave">
+					<h2>Future Directions</h2>
+                        <small>
+                            <ul>
+                              <li>COVID-19 and cancer patients </li>
+                              <li>Cancer and financial hardship </li>
+                              <li>Historical data</li>
+                              <li>Model improvements  </li>
+                              <li>Looking for future updates? Click on: <a href="https://jasonzheng111.github.io/twitter_sentiment_test/" target="_blank">Twitter Sentiment</a></li>
+                                
+                            </ul>
+                        </small>
+				</section>
+
+				<section data-transition="concave">
+					<h2>Help us fight cancer</h2>
+					<p><small><em>If you find this analysis helpful, please click on our logo and and make a donation: </em></small>
+					</p>
+                    <a href="https://www.cancer.org/" target="_blank">
+                        <img src="img/American_Cancer_Society_Logo.png" alt="Twitter logo" style="height: 75px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+                    </a>
+				</section>
+
+				<section style="text-align: left;" data-transition="concave">
+					<h1>Questions and comments</h1>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+                backgroundTransition: 'Convex',
+                slideNumber: 'c/t',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
